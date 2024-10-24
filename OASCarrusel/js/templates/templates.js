@@ -6,18 +6,17 @@ const teplateContentTab = `<div class="row mt-4">
         </div>
         <div class="col-sm-10 pipe">  
             <label for="compartirImagen{tabCounter}">Imagen multilingüe</label>
-            <input type="checkbox" class="chkShowLanguage" name="compartirImagen{tabCounter}" id="compartirImagen{tabCounter}"></input>	
+            <input type="checkbox" class="chkShowLanguage" name="compartirImagen{tabCounter}" id="compartirImagen{tabCounter}" json_section="carruselCardsInfo"></input>	
             <span class="separatorNavItem">|</span>
             <label for="chkShowEnglishLanguage{tabCounter}">English</label>
-            <input type="checkbox" class="chkShowLanguage" data-target-id="tabliEnglish{tabCounter}" name="English" id="chkShowEnglishLanguage{tabCounter}" onchange="ShowCardLangage(this)"></input>	
+            <input type="checkbox" class="chkShowLanguage" data-target-id="tabliEnglish{tabCounter}" data-target-contenttab-id="tabPaneEnglish{tabCounter}"  name="English" id="chkShowEnglishLanguage{tabCounter}" onchange="ShowCardLangage(this)" json_section="carruselCardsInfo"></input>	
             <label for="chkShowSpanishLanguage{tabCounter}">Spanish</label>
-            <input type="checkbox" class="chkShowLanguage" data-target-id="tabliSpanish{tabCounter}" name="Spanish" id="chkShowSpanishLanguage{tabCounter}" onchange="ShowCardLangage(this)"></input>	
+            <input type="checkbox" class="chkShowLanguage" data-target-id="tabliSpanish{tabCounter}" data-target-contenttab-id="tabPaneSpanish{tabCounter}"  name="Spanish" id="chkShowSpanishLanguage{tabCounter}" onchange="ShowCardLangage(this)" json_section="carruselCardsInfo"></input>	
             <label for="chkShowFrenchLanguage{tabCounter}">French</label>
-            <input type="checkbox" class="chkShowLanguage" data-target-id="tabliFrench{tabCounter}" name="French" id="chkShowFrenchLanguage{tabCounter}" onchange="ShowCardLangage(this)"></input>		
+            <input type="checkbox" class="chkShowLanguage" data-target-id="tabliFrench{tabCounter}" data-target-contenttab-id="tabPaneFrench{tabCounter}" name="French" id="chkShowFrenchLanguage{tabCounter}" onchange="ShowCardLangage(this)" json_section="carruselCardsInfo"></input>		
             <label for="chkShowPortuguesLanguage{tabCounter}">Portugues</label>
-            <input type="checkbox" class="chkShowLanguage" data-target-id="tabliPortugues{tabCounter}" name="Portugues" id="chkShowPortuguesLanguage{tabCounter}" onchange="ShowCardLangage(this)"></input>					
-            <span class="separatorNavItem">|</span><a href="#" id="eyebutton{tabCounter}" class="bi bi-eye eyeNavMenuItem" onclick="ShowHideCard()"></a>
-            <span class="separatorNavItem">|</span><a href="#" class="bi bi-floppy eyeNavMenuItem"></a>
+            <input type="checkbox" class="chkShowLanguage" data-target-id="tabliPortugues{tabCounter}" data-target-contenttab-id="tabPanePortugues{tabCounter}" name="Portugues" id="chkShowPortuguesLanguage{tabCounter}" onchange="ShowCardLangage(this)" json_section="carruselCardsInfo"></input>					
+            <span class="separatorNavItem">|</span><a href="#" id="eyebutton{tabCounter}" class="bi bi-eye eyeNavMenuItem" onclick="ShowHideCard(event)" json_section="carruselCardsInfo"></a>
         </div>
     </div>
     <input type="file" id="file-input{tabCounter}" accept="image/*" onchange="loadImage(event, 'image{tabCounter}', 'scaleRange{tabCounter}', {tabCounter})" class="file-input-card">
@@ -62,20 +61,20 @@ const teplateContentTab = `<div class="row mt-4">
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="card col-md-4" id="card{tabCounter}">
-                        <div class="image-wrapper" json-data="true" id="imagewrapper{tabCounter}">						  
-                            <div id="image-container{tabCounter}" class="image-container card-img-top" ondblclick="document.getElementById('file-input{tabCounter}').click();">
-                                <img id="image{tabCounter}" class="image" draggable="false">
-                                <div class="linksitems" id="linksitems{tabCounter}" json-data="true">
-                                <p id="DescriptionImageCarrusel{tabCounter}">OAS/CICAD publishes Thematic National Evaluation Reports 2023 of the Eighth Round of the Multilateral Evaluation Mechanism</p>
-                                <ul id="linkslist{tabCounter}"></ul>
+                    <div class="card col-md-4" id="card{tabCounter}" json_section="CardsByLanguage" culture="en-US">
+                        <div class="image-wrapper" json-data="true" id="imagewrapper{tabCounter}" json_section="CardsByLanguage">						  
+                            <div id="image-container{tabCounter}" class="image-container card-img-top" json_section="CardsByLanguage" ondblclick="document.getElementById('file-input{tabCounter}').click();">
+                                <img id="image{tabCounter}" class="image" draggable="false" json_section="CardsByLanguage">
+                                <div class="linksitems" id="linksitems{tabCounter}" json-data="true" json_section="CardsByLanguage">
+                                <p id="DescriptionImageCarrusel{tabCounter}" json_section="CardsByLanguage">OAS/CICAD publishes Thematic National Evaluation Reports 2023 of the Eighth Round of the Multilateral Evaluation Mechanism</p>
+                                <ul id="linkslist{tabCounter}" json_section="CardsByLanguage"></ul>
                                 </div>
                             </div>
                         </div>						
-                        <div class="card-body">
-                            <h5 class="card-title" id="cardtitle{tabCounter}">Lorem ipsum dolor sit amet, consectetuer ipsum dolor</h5>
-                            <p class="card-text" id="cardText{tabCounter}">The Organization of American States is the oldest regional organization in the world. The origin of the Organization of American States (OAS).</p>
-                            <a href="#" class="readmorelink" id="readmorelink{tabCounter}">read more</a>
+                        <div class="card-body" id="cardbody{tabCounter}" json_section="CardsByLanguage">
+                            <h5 class="card-title" id="cardtitle{tabCounter}" json_section="CardsByLanguage">Lorem ipsum dolor sit amet, consectetuer ipsum dolor</h5>
+                            <p class="card-text" id="cardText{tabCounter}" json_section="CardsByLanguage">The Organization of American States is the oldest regional organization in the world. The origin of the Organization of American States (OAS).</p>
+                            <a href="#" class="readmorelink" id="readmorelink{tabCounter}" json_section="CardsByLanguage">read more</a>
                         </div>
                     </div>
                     <div class="col-md-6 RightColumnForm">
@@ -151,20 +150,20 @@ const teplateContentTab = `<div class="row mt-4">
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="card col-md-4" id="cardSpanish{tabCounter}">
-                        <div class="image-wrapper" json-data="true" id="imagewrapperSpanish{tabCounter}">						  
-                            <div id="image-container-Spanish{tabCounter}" class="image-container card-img-top" ondblclick="document.getElementById('file-input-Spanish{tabCounter}').click();">
-                                <img id="imageSpanish{tabCounter}" class="image" draggable="false">
-                                <div class="linksitems" id="linksitemsSpanish{tabCounter}" json-data="true">
-                                <p id="DescriptionImageCarruselSpanish{tabCounter}">OAS/CICAD publishes Thematic National Evaluation Reports 2023 of the Eighth Round of the Multilateral Evaluation Mechanism</p>
-                                <ul id="linkslistSpanish{tabCounter}"></ul>
+                    <div class="card col-md-4" id="cardSpanish{tabCounter}" json_section="CardsByLanguage" culture="es-ES">
+                        <div class="image-wrapper" json-data="true" id="imagewrapperSpanish{tabCounter}" json_section="CardsByLanguage">						  
+                            <div id="image-container-Spanish{tabCounter}" class="image-container card-img-top" json_section="CardsByLanguage" ondblclick="document.getElementById('file-input-Spanish{tabCounter}').click();">
+                                <img id="imageSpanish{tabCounter}" class="image" draggable="false" json_section="CardsByLanguage">
+                                <div class="linksitems" id="linksitemsSpanish{tabCounter}" json-data="true" json_section="CardsByLanguage">
+                                <p id="DescriptionImageCarruselSpanish{tabCounter}" json_section="CardsByLanguage">OAS/CICAD publishes Thematic National Evaluation Reports 2023 of the Eighth Round of the Multilateral Evaluation Mechanism</p>
+                                <ul id="linkslistSpanish{tabCounter}" json_section="CardsByLanguage"></ul>
                                 </div>
                             </div>
                         </div>						
-                        <div class="card-body">
-                            <h5 class="card-title" id="cardtitleSpanish{tabCounter}">Lorem ipsum dolor sit amet, consectetuer ipsum dolor</h5>
-                            <p class="card-text" id="cardTextSpanish{tabCounter}">The Organization of American States is the oldest regional organization in the world. The origin of the Organization of American States (OAS).</p>
-                            <a href="#" class="readmorelink" id="readmorelinkSpanish{tabCounter}">read more</a>
+                        <div class="card-body" id="cardbodySpanish{tabCounter}" json_section="CardsByLanguage">
+                            <h5 class="card-title" id="cardtitleSpanish{tabCounter}" json_section="CardsByLanguage">Lorem ipsum dolor sit amet, consectetuer ipsum dolor</h5>
+                            <p class="card-text" id="cardTextSpanish{tabCounter}" json_section="CardsByLanguage">The Organization of American States is the oldest regional organization in the world. The origin of the Organization of American States (OAS).</p>
+                            <a href="#" class="readmorelink" id="readmorelinkSpanish{tabCounter}" json_section="CardsByLanguage">read more</a>
                         </div>
                     </div>
                     <div class="col-md-6 RightColumnForm">
@@ -240,20 +239,20 @@ const teplateContentTab = `<div class="row mt-4">
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="card col-md-4" id="cardFrench{tabCounter}">
-                        <div class="image-wrapper" json-data="true" id="imagewrapperFrench{tabCounter}">						  
-                            <div id="image-container-French{tabCounter}" class="image-container card-img-top" ondblclick="document.getElementById('file-input-French{tabCounter}').click();">
-                                <img id="imageFrench{tabCounter}" class="image" draggable="false">
-                                <div class="linksitems" id="linksitemsFrench{tabCounter}" json-data="true">
-                                    <p id="DescriptionImageCarruselFrench{tabCounter}">OAS/CICAD publishes Thematic National Evaluation Reports 2023 of the Eighth Round of the Multilateral Evaluation Mechanism</p>
-                                    <ul id="linkslistFrench{tabCounter}"></ul>
+                    <div class="card col-md-4" id="cardFrench{tabCounter}" json_section="CardsByLanguage" culture="fr-FR">
+                        <div class="image-wrapper" json-data="true" id="imagewrapperFrench{tabCounter}" json_section="CardsByLanguage">						  
+                            <div id="image-container-French{tabCounter}" class="image-container card-img-top" json_section="CardsByLanguage" ondblclick="document.getElementById('file-input-French{tabCounter}').click();">
+                                <img id="imageFrench{tabCounter}" class="image" draggable="false" json_section="CardsByLanguage">
+                                <div class="linksitems" id="linksitemsFrench{tabCounter}" json-data="true" json_section="CardsByLanguage">
+                                    <p id="DescriptionImageCarruselFrench{tabCounter}" json_section="CardsByLanguage">OAS/CICAD publishes Thematic National Evaluation Reports 2023 of the Eighth Round of the Multilateral Evaluation Mechanism</p>
+                                    <ul id="linkslistFrench{tabCounter}" json_section="CardsByLanguage"></ul>
                                 </div>
                             </div>
                         </div>						
-                        <div class="card-body">
-                            <h5 class="card-title" id="cardtitleFrench{tabCounter}">Lorem ipsum dolor sit amet, consectetuer ipsum dolor</h5>
-                            <p class="card-text" id="cardTextFrench{tabCounter}">The Organization of American States is the oldest regional organization in the world. The origin of the Organization of American States (OAS).</p>
-                            <a href="#" class="readmorelink" id="readmorelinkFrench{tabCounter}">read more</a>
+                        <div class="card-body" id="cardbodyFrench{tabCounter}" json_section="CardsByLanguage">
+                            <h5 class="card-title" id="cardtitleFrench{tabCounter}" json_section="CardsByLanguage">Lorem ipsum dolor sit amet, consectetuer ipsum dolor</h5>
+                            <p class="card-text" id="cardTextFrench{tabCounter}" json_section="CardsByLanguage">The Organization of American States is the oldest regional organization in the world. The origin of the Organization of American States (OAS).</p>
+                            <a href="#" class="readmorelink" id="readmorelinkFrench{tabCounter}" json_section="CardsByLanguage">read more</a>
                         </div>
                     </div>
                     <div class="col-md-6 RightColumnForm">
@@ -329,20 +328,20 @@ const teplateContentTab = `<div class="row mt-4">
                     </div>
                 </div>
                 <div class="row mt-4">
-                    <div class="card col-md-4" id="cardPortugues{tabCounter}">
-                        <div class="image-wrapper" json-data="true" id="imagewrapperPortugues{tabCounter}">						  
-                            <div id="image-container-Portugues{tabCounter}" class="image-container card-img-top" ondblclick="document.getElementById('file-input-Portugues{tabCounter}').click();">
-                                <img id="imagePortugues{tabCounter}" class="image" draggable="false">
-                                <div class="linksitems" id="linksitemsPortugues{tabCounter}" json-data="true">
-                                    <p id="DescriptionImageCarruselPortugues{tabCounter}">OAS/CICAD publishes Thematic National Evaluation Reports 2023 of the Eighth Round of the Multilateral Evaluation Mechanism</p>
-                                    <ul id="linkslistPortugues{tabCounter}"></ul>
+                    <div class="card col-md-4" id="cardPortugues{tabCounter}" json_section="CardsByLanguage" culture="pt-PT">
+                        <div class="image-wrapper" json-data="true" id="imagewrapperPortugues{tabCounter}" json_section="CardsByLanguage">						  
+                            <div id="image-container-Portugues{tabCounter}" class="image-container card-img-top" json_section="CardsByLanguage" ondblclick="document.getElementById('file-input-Portugues{tabCounter}').click();">
+                                <img id="imagePortugues{tabCounter}" class="image" draggable="false" json_section="CardsByLanguage">
+                                <div class="linksitems" id="linksitemsPortugues{tabCounter}" json-data="true" json_section="CardsByLanguage">
+                                    <p id="DescriptionImageCarruselPortugues{tabCounter}" json_section="CardsByLanguage">OAS/CICAD publishes Thematic National Evaluation Reports 2023 of the Eighth Round of the Multilateral Evaluation Mechanism</p>
+                                    <ul id="linkslistPortugues{tabCounter}" json_section="CardsByLanguage"></ul>
                                 </div>
                             </div>
                         </div>						
-                        <div class="card-body">
-                            <h5 class="card-title" id="cardtitlePortugues{tabCounter}">Lorem ipsum dolor sit amet, consectetuer ipsum dolor</h5>
-                            <p class="card-text" id="cardTextPortugues{tabCounter}">The Organization of American States is the oldest regional organization in the world. The origin of the Organization of American States (OAS).</p>
-                            <a href="#" class="readmorelink" id="readmorelinkPortugues{tabCounter}">read more</a>
+                        <div class="card-body" id="cardbodyPortugues{tabCounter}" json_section="CardsByLanguage" json_section="CardsByLanguage">
+                            <h5 class="card-title" id="cardtitlePortugues{tabCounter}" json_section="CardsByLanguage">Lorem ipsum dolor sit amet, consectetuer ipsum dolor</h5>
+                            <p class="card-text" id="cardTextPortugues{tabCounter}" json_section="CardsByLanguage">The Organization of American States is the oldest regional organization in the world. The origin of the Organization of American States (OAS).</p>
+                            <a href="#" class="readmorelink" id="readmorelinkPortugues{tabCounter}" json_section="CardsByLanguage">read more</a>
                         </div>
                     </div>
                     <div class="col-md-6 RightColumnForm">
@@ -414,7 +413,31 @@ const teplateContentTab = `<div class="row mt-4">
     </div>
 </div>
 `;
+/*const templateViewCard3 = `<div class="card col-md-4" style="width: 332px; height: 400px; background-color: rgb(240, 240, 240);">
+                                <div class="resultview-image-wrapper" style="height: 50%;">
+                                    <div class="resultview-image-container card-img-top">
+                                    <img class="resultview-image" draggable="false">
+                                </div>
+                                </div>
+                                <div class="card-body" style="display: block; height: 50%;">
+                                    <h5 class="card-title">{cardtitletext}</h5>
+                                    <p class="card-text">{carddescriptiontext}</p>
+                                    <a href="#" class="resultview-readmorelink">link1</a>
+                                </div>
+                            </div>`
 
+const templateViewCard3_V2 = `<div class="card col-md-4" {style}> 
+                                <div class="resultview-image-wrapper" {style}>
+                                    <div class="resultview-image-container card-img-top">
+                                    <img class="resultview-image" draggable="false">
+                                </div>
+                                </div>
+                                <div class="card-body" {style}>
+                                    <h5 class="card-title">{cardtitletext}</h5>
+                                    <p class="card-text">{carddescriptiontext}</p>
+                                    <a href="#" class="resultview-readmorelink">link1</a>
+                                </div>
+                            </div>`*/
 function GetTemplate(valtabCounter){
     let tabCounter = valtabCounter;
     const regex = /{tabCounter}/gi;

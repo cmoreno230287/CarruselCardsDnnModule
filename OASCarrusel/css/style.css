@@ -21,6 +21,7 @@
     height: 100%;
     object-fit: contain;
     cursor: move;
+    max-width: none;
   }
 
   /* Hide file input */
@@ -163,6 +164,15 @@
 
   .textalignEnd{
     text-align: end;
+    padding-right: 240px;
+  }
+
+  .marginleftbar{
+    margin-left: 10px;
+  }
+
+  #saveConfiguration{
+    font-size: 25px;
   }
 
   .inputSectionTitle{

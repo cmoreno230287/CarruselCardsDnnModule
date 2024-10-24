@@ -46,6 +46,8 @@
     AddEventsRangeControls(scaleRangePortugues.id, '');
     
     SetSectionStyle();
+    
+    createHtmlFromJson();    
 
 	// Load the selected image into the container
     function loadImage(event, imgId, scaleId, tabcount) {
@@ -219,18 +221,21 @@
         }
     }
 
-    function ShowHideCard(){
+    function ShowHideCard(event) {
+        event.preventDefault();
+
         let showcardvalue = showcard.value;
 
-        if(showcardvalue == "true"){
+        if (showcardvalue == "true") {
             showcard.value = "false";
             eyebutton.classList.remove("bi-eye");
             eyebutton.classList.add("bi-eye-slash")
-        }else{
+        } else {
             showcard.value = "true";
             eyebutton.classList.remove("bi-eye-slash");
             eyebutton.classList.add("bi-eye")
         }
+        return false;
     }
 
     function changeBackgroundColor(element){
@@ -484,11 +489,15 @@
         });
     }
 
+    function LoadInformationFromJson(){
+
+    }
+
     function createJsonFromParent() {
         const carruselCards = [];
         const sectionSelect = document.getElementById("tipoSeccion");
-    
-        // Select elements for carousel cards
+
+            // Select elements for carousel cards
         const elementsSectionCarruselCards = document.querySelectorAll('[json_section=carruselCards]');
     
         elementsSectionCarruselCards.forEach((element) => {
@@ -501,9 +510,9 @@
                         const tabPanelLanguageElementId = ele.getAttribute("data-target-contenttab-id");
                         const paneElement = document.getElementById(tabPanelLanguageElementId);
                         const cardsByLanguageElements = paneElement?.querySelectorAll("[json_section=CardsByLanguage]") || [];
-                        
+
                         const cardsByLanguage = Array.from(cardsByLanguageElements).map(el => generateJsonObject(el));
-                        
+
                         carruselCardsInfo[ele.id] = {
                             show: ele.checked,
                             card: cardsByLanguage
@@ -512,7 +521,15 @@
                         carruselCardsInfo[ele.id] = ele.checked;
                     }
                 } else if (ele.type === "hidden") {
+                    //let id = ele.id.startsWith("showcard") ? "showcard" : ele.id;
                     carruselCardsInfo[ele.id] = ele.value;
+                }
+                else if (ele.tagName.toLowerCase() === "a") {
+                    if (ele.id.startsWith("eyebutton")) {
+                        carruselCardsInfo["showcard"] = (ele.classList.contains("bi-eye-slash")) ? false : true;
+                    } else {
+                        carruselCardsInfo[id] = ele.value;
+                    }
                 }
             });
     
@@ -527,13 +544,52 @@
             },
             cards: carruselCards
         };
-    
-        // Convert the object to a JSON string with indentation for readability
-        const jsonString = JSON.stringify(carruselInfo, null, 4);
-    
-        console.log(jsonString);
-        return jsonString;
+        
+        addCardsToView(carruselInfo);
+        let jsonString = JSON.stringify(carruselInfo);
+        SaveCardViewSetting(jsonString, "CardView1");
+        OpenConfiguration(false);
     }
+
+    async function createHtmlFromJson(){        
+        const CarruselViewSetting = await getData("CardView1");
+        if (CarruselViewSetting != null && CarruselViewSetting?.fileContent != null) {
+            let decodedCarruselViewSetting = decodeFromBase64(CarruselViewSetting?.fileContent);
+            let carruselInfo = JSON.parse(decodedCarruselViewSetting);
+            addCardsToView(carruselInfo);
+            if (carruselInfo.sectionCardInfo.showButtonMore == "on") {
+                let viewmorebutton = document.getElementById("viewmorebutton");
+                let viewtitle = document.getElementById("viewtitle");
+                viewmorebutton.style.display = "block";
+                viewtitle.style.display = "block";
+                viewtitle.innerText = carruselInfo.sectionCardInfo.sectionTitle;
+            }
+        }
+    }
+
+    async function SaveCardViewSetting(carruselInfo, filename) {
+        await SendData(carruselInfo, filename);
+    }
+
+    function addCardsToView(carruselInfo){
+        var html = generateHtmlFromCards(carruselInfo);
+        var urlCulture = window.location.href.split("/")[3].toLowerCase();
+        // Convert the object to a JSON string with indentation for readability
+        const regex1 = /image-wrapper/gi;
+        const regex2 = /image-container/gi;
+        var html = html.replaceAll(regex1, "resultview-image-wrapper")
+                       .replaceAll(regex2, "resultview-image-container");
+
+        //const jsonString = JSON.stringify(carruselInfo, null, 4);
+        var sectioncards = document.getElementById("sectioncards");
+        sectioncards.innerHTML = html;
+        var sectioncardsElements = sectioncards.querySelectorAll(".card");
+        sectioncardsElements.forEach((ele) => {
+            let currentCulture = ele.getAttribute("culture").toLowerCase();            
+            (urlCulture == currentCulture) ? ele.style.display = "block" : ele.style.display = "none";
+        });
+    }
+
     function generateJsonObject(element){
         const tagName = element.tagName.toLowerCase();
         let value = '';
@@ -554,6 +610,7 @@
 
         const parentId = element.parentElement?.id || 'no-parent-id';
         const cssStyle = element.getAttribute("style") || '';
+        const culture = element.getAttribute("culture") || '';
         const cssClasses = Array.from(element.classList);
 
         return {
@@ -565,15 +622,18 @@
             cssstyle: cssStyle,
             href: tagName === 'a' ? element.getAttribute("href") || '' : '',
             src: tagName === 'img' ? element.getAttribute("src") || '' : '',
+            culture: culture
         };
     }
 
     function generateJson()
     {
+        const mainElement = document.querySelector('#main-container');
+        const resultJson = generateJsonFromHtml(mainElement);
+        let jsonString = JSON.stringify(resultJson);        
         // Example usage:
         createJsonFromParent();
-        //const jsonResult = createJsonFromParent(); // Replace with your parent element ID
-        //console.log(JSON.stringify(jsonResult, null, 2)); // Pretty print the JSON object
+        SaveCardViewSetting(jsonString, "CardSetting1").then(window.location.reload());
     }
     
 
@@ -596,6 +656,97 @@
                 });
             }
         });
+    }
+
+    function OpenConfiguration(event, showConfig) {
+        let containerViewResul = document.getElementById('containerViewResul');
+        let containerSetting = document.getElementById('containerSetting');
+        if(showConfig){
+            containerViewResul.style.display = "none";
+            containerSetting.style.display = "block";
+            applyPropertiesFromJson("CardSetting1").then(() => {
+                fixTabIssuesOpening();
+            });
+        }else{
+            containerViewResul.style.display = "block";
+            containerSetting.style.display = "none";
+        }
+    }
+
+    function fixTabIssuesOpening() {
+        let lastTabPaneId = document.getElementById("add-tab").closest("li").previousSibling.querySelector("button").getAttribute("data-bs-target").replace("#", "");
+        let lastTab = document.getElementById("add-tab").closest("li").previousSibling.querySelector("button");
+        let lastTabPane = document.getElementById(lastTabPaneId);
+        let tabsListCount = document.getElementById("tabList").querySelectorAll("li").length;
+
+        if (tabsListCount > 0) {
+            let firstTab = document.getElementById("tabList").querySelectorAll("li")[0].querySelector("button");
+            firstTab.click();
+            lastTabPane.classList.remove("show");
+
+            setTimeout(() => {
+                lastTab.click();
+            }, 500);
+
+            setTimeout(() => {
+                firstTab.click();
+            }, 500);
+        }
+    }
+
+    function generateHTMLFromTemplate(template, jsonData) {
+        let cards = jsonData.cards;
+        let htmlOut = document.createElement("div");
+
+        cards.forEach((item) => {
+            let htmlBylang = null;
+            if(item.chkShowEnglishLanguage){
+                item.chkShowEnglishLanguage.card.forEach((itm) => {
+                    let html = document.createElement(itm.htmltag);
+                    html.innerText = (itm.htmltag != "img") ? itm.value : "";
+                    html.setAttribute("style", itm.cssstyle);
+                    html.classList = itm.classes;
+                    html.id = itm.id;
+
+                    if(itm.htmltag == "img"){
+                        html.src = itm.src;
+                    }
+
+                    if(itm.htmltag == "a"){
+                        html.href = itm.href
+                    }
+
+                    if(itm.parentId == "no-parent-id"){
+                        htmlBylang = html;
+                    }
+                    else{
+                        html.parentId = itm.parentId;
+                        if(htmlBylang.id == itm.parentId){
+                            htmlBylang.appendChild(html);                     
+                        }
+                        else if(htmlBylang.childNodes.length > 0 && htmlBylang.id != itm.parentId){
+                            let element = htmlBylang.getElementById(itm.parentId);
+                            element.appendChild(html);   
+                        }
+                    }
+                    
+                    /* const replacements = {
+                        "{style}": data.cssstyle ? `style="${data.cssstyle}"` : "",
+                        "{cardtitletext}": data.cardtitletext || "Default Title",
+                        "{carddescriptiontext}": data.carddescriptiontext || "Default description",
+                        "{imageSrc}": data.imageSrc || "",
+                        "{readmoreLink}": data.readmoreLink || "#"
+                    }; */
+                });                
+            }
+
+            htmlOut.append(htmlBylang);
+        });
+        // Create a map for replacing placeholders with values from the data
+        
+    
+        // Replace placeholders in the template with the actual values
+        return htmlOut;//template.replace(/\{(.*?)\}/g, (_, key) => replacements[`{${key}}`] || '');
     }
 
 

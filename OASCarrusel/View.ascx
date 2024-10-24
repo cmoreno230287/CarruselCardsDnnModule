@@ -3,16 +3,16 @@
     <div class="container my-4" id="main-container">
         <!-- Tabs Navigation -->
         <div class="form-group row">
-            <div class="col-sm-5">
-                <label for="sectionTitle">Titulo de la Seccion:</label>            
+            <!--<div class="col-sm-5">
+            </div>
+            <div class="col-sm-3">                
+            </div>-->
+            <div class="col-sm-12 textalignEnd">
+                <label for="sectionTitle" class="marginleftbar">Titulo de la Seccion:</label>            
                 <input type="text" class="form-control inputSectionTitle" id="sectionTitle" placeholder="Enter title section" json-data="true" json_section="carruselInfo">
-            </div>
-            <div class="col-sm-3">
-                <label for="ButtonShowMore">Mostrar boton ver mas</label>
+                <label for="ButtonShowMore" class="marginleftbar">Mostrar boton ver mas</label>
                 <input type="checkbox" name="ButtonShowMore" id="ButtonShowMore" json-data="true"  json_section="carruselInfo"></input>	
-            </div>
-            <div class="col-sm-4 textalignEnd">
-                <label for="tipoSeccion">Tipo de Seccion:</label>
+                <label for="tipoSeccion" class="marginleftbar">Tipo de Seccion:</label>
                 <select id="tipoSeccion" onchange="SetSectionStyle()" json-data="true" json_section="carruselInfo">
                     <option value="sel">Seleccionar</option>
                     <option value="3des">3 Destacados</option>
@@ -21,6 +21,7 @@
                     <option value="2des">2 Destacados</option>
                     <option value="carr">Carrusel</option>
                 </select>
+                <a href="#" id="saveConfiguration" class="bi bi-floppy marginleftbar" onclick="generateJson()"></a>
             </div>
         </div>
         <ul class="nav nav-tabs" id="tabList" role="tablist">
@@ -56,8 +57,8 @@
                             <input type="checkbox" class="chkShowLanguage" data-target-id="tabliFrench" data-target-contenttab-id="tabPaneFrench" name="French" id="chkShowFrenchLanguage" onchange="ShowCardLangage(this)" json-data="true" json_section="carruselCardsInfo"></input>		
                             <label for="chkShowPortuguesLanguage">Portugues</label>
                             <input type="checkbox" class="chkShowLanguage" data-target-id="tabliPortugues" data-target-contenttab-id="tabPanePortugues" name="Portugues" id="chkShowPortuguesLanguage" onchange="ShowCardLangage(this)" json-data="true" json_section="carruselCardsInfo"></input>					
-                            <span class="separatorNavItem">|</span><a href="#" id="eyebutton" class="bi bi-eye eyeNavMenuItem" onclick="ShowHideCard()"></a>
-                            <span class="separatorNavItem">|</span><a href="#" class="bi bi-floppy eyeNavMenuItem" onclick="generateJson()"></a>
+                            <span class="separatorNavItem">|</span><a href="#" id="eyebutton" class="bi bi-eye eyeNavMenuItem" onclick="ShowHideCard(event)" json_section="carruselCardsInfo"></a>
+                            <span class="separatorNavItem">|</span>
                         </div>
                     </div>
                     <input type="file" id="file-input" accept="image/*" onchange="loadImage(event, 'image', 'scaleRange', '')" class="file-input-card">
@@ -102,7 +103,7 @@
                                     </div>
                                 </div>
                                 <div class="row mt-4">
-                                    <div class="card col-md-4" id="card" json-data="true" json_section="CardsByLanguage">
+                                    <div class="card col-md-4" id="card" json-data="true" json_section="CardsByLanguage" culture="en-US">
                                         <div class="image-wrapper" json-data="true" json_section="CardsByLanguage" id="imagewrapper">						  
                                             <div id="image-container" class="image-container card-img-top" ondblclick="document.getElementById('file-input').click();" json-data="true" json_section="CardsByLanguage">
                                                 <img id="image" class="image" draggable="false" json-data="true" json_section="CardsByLanguage">
@@ -191,7 +192,7 @@
                                     </div>
                                 </div>
                                 <div class="row mt-4">
-                                    <div class="card col-md-4" id="cardSpanish" json_section="CardsByLanguage">
+                                    <div class="card col-md-4" id="cardSpanish" json_section="CardsByLanguage" culture="es-ES">
                                         <div class="image-wrapper" json-data="true" id="imagewrapperSpanish" json_section="CardsByLanguage">						  
                                         <div id="image-container-Spanish" class="image-container card-img-top" ondblclick="document.getElementById('file-input-Spanish').click();" json_section="CardsByLanguage">
                                             <img id="imageSpanish" class="image" draggable="false" json_section="CardsByLanguage">
@@ -280,7 +281,7 @@
                                     </div>
                                 </div>
                                 <div class="row mt-4">
-                                    <div class="card col-md-4" id="cardFrench" json_section="CardsByLanguage">
+                                    <div class="card col-md-4" id="cardFrench" json_section="CardsByLanguage" culture="fr-FR">
                                         <div class="image-wrapper" json-data="true" id="imagewrapperFrench" json_section="CardsByLanguage">						  
                                             <div id="image-container-French" class="image-container card-img-top" ondblclick="document.getElementById('file-input-French').click();" json_section="CardsByLanguage">
                                                 <img id="imageFrench" class="image" draggable="false" json_section="CardsByLanguage">
@@ -369,7 +370,7 @@
                                     </div>
                                 </div>
                                 <div class="row mt-4">
-                                    <div class="card col-md-4" id="cardPortugues" json_section="CardsByLanguage">
+                                    <div class="card col-md-4" id="cardPortugues" json_section="CardsByLanguage" culture="pt-PT">
                                         <div class="image-wrapper" json-data="true" id="imagewrapperPortugues" json_section="CardsByLanguage">						  
                                             <div id="image-container-Portugues" class="image-container card-img-top" ondblclick="document.getElementById('file-input-Portugues').click();" json_section="CardsByLanguage">
                                                 <img id="imagePortugues" class="image" draggable="false" json_section="CardsByLanguage">
@@ -457,84 +458,40 @@
         </div>
     </div>
 </div>
-<div id="containerViewResul">
+<div id="containerViewResul">    
     <link rel="stylesheet" href="/DesktopModules/OASDnnModulesV2/pages/home/Section4/css/section_4.css"></link>
-    <section class="variable slider">
-    <div>
-        <div class="oas-card">
-            <a href="https://www.oas.org/en/topics/human_rights.asp" class="oas-card-link">
-            <img src="/DesktopModules/OASDnnModulesV2/carrusel/img/1.png" alt="Avatar" class="oas-card-containerimage">
-            </a>
-            <div class="oas-card-containertext">
-            <a href="https://www.oas.org/en/topics/human_rights.asp" class="oas-card-link">
-                <div class="oas-card-title">Empowering Human Rights for All</div> 
-                <div class="oas-card-description">
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                </div>                                
-                <div class="oas-card-subdescription"></div> 
-            </a>
-            <a href="#" class="readmorelink">Read more</a>
-            </div>
+    <section class="row viewcardbar">
+        <div class="col-sm-12">
+            <a href="#" class="dnni dnni-cog" onclick="OpenConfiguration(event, true)"></a>
         </div>
-    </div>
-    <div>
-        <div class="oas-card">
-            <a href="https://www.oas.org/en/topics/human_rights.asp" class="oas-card-link">
-            <img src="/DesktopModules/OASDnnModulesV2/carrusel/img/2.png" alt="Avatar" class="oas-card-containerimage">
-            </a>
-            <div class="oas-card-containertext">
-            <a href="https://www.oas.org/en/topics/human_rights.asp" class="oas-card-link">
-                <div class="oas-card-title">Empowering Human Rights for All</div> 
-                <div class="oas-card-description">
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                </div>
-                <div class="oas-card-subdescription"></div> 
-            </a>
-            <a href="#" class="readmorelink">Read more</a>
-            </div>
-        </div>
-    </div>
-    <div>
-        <div class="oas-card">
-            <a href="https://www.oas.org/en/topics/human_rights.asp" class="oas-card-link">
-            <img src="/DesktopModules/OASDnnModulesV2/carrusel/img/3.png" alt="Avatar" class="oas-card-containerimage">
-            </a>
-            <div class="oas-card-containertext">
-            <a href="https://www.oas.org/en/topics/human_rights.asp" class="oas-card-link">
-                <div class="oas-card-title">Empowering Human Rights for All</div> 
-                <div class="oas-card-description">
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                Every individual deserves the freedom to live with dignity, equality, and respect.
-                </div>
-                <div class="oas-card-subdescription"></div> 
-            </a>
-            <a href="#" class="readmorelink">Read more</a>
-            </div>
-        </div>
-    </div>  
     </section>
-    <link rel="stylesheet" type="text/css" href="/DesktopModules/OASDnnModulesV2/carrusel/slick/slick.css">
-    <link rel="stylesheet" type="text/css" href="/DesktopModules/OASDnnModulesV2/carrusel/slick/slick-theme.css">
-    <script src="/Resources/Libraries/03_05_01/jquery.js" type="text/javascript"></script>
+    <div id="header" class="resultview-oas-card-head">
+        <div id="viewtitle" class="resultview-oas-card-head" style="display: none;">More Events</div>
+        <div class="resultview-oas-card-head-right" id="viewmorebutton" style="display: none;">
+            <a href="https://www.oas.org/ext/en/main/search/programs" class="resultview-linkbutton">
+              MORE EVENTS
+            </a>
+        </div>
+    </div>
+    <section class="resultview-variable slider" id="sectioncards">
+    
+    </section>
 </div>
+<link href="/DesktopModules/OASCarrusel/libraries/css/slick.css" rel="stylesheet">
+<link href="/DesktopModules/OASCarrusel/libraries/css/slick-theme.css" rel="stylesheet">
 <link href="/DesktopModules/OASCarrusel/libraries/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/DesktopModules/OASCarrusel/libraries/css/bootstrap-icons-1.11.0/bootstrap-icons.min.css">
-<link href="/DesktopModules/OASCarrusel/css/style.css" rel="stylesheet">
-<script src="/Resources/Libraries/03_05_01/jquery.js"></script>
+<link href="/DesktopModules/OASCarrusel/libraries/css/bootstrap-icons-1.11.0/bootstrap-icons.min.css" rel="stylesheet">
+<link href="/DesktopModules/OASCarrusel/css/viewgeneralStyle.css" rel="stylesheet">
+<link href="/DesktopModules/OASCarrusel/css/style.css" rel="stylesheet"> 
+<script src="/Resources/Libraries/jQuery/03_05_01/jquery.js"></script>
 <script src="/DesktopModules/OASCarrusel/libraries/js/popper.min.js"></script>
 <script src="/DesktopModules/OASCarrusel/libraries/js/bootstrap.min.js"></script>
 <script src="/DesktopModules/OASCarrusel/libraries/js/bootstrap.bundle.min.js"></script>
 <script src="/DesktopModules/OASCarrusel/libraries/js/Sortable.min.js"></script>
 <script src="/DesktopModules/OASCarrusel/js/templates/templates.js"></script>
+<script src="/DesktopModules/OASCarrusel/js/renderCards.js"></script>
+<script src="/DesktopModules/OASCarrusel/js/renderCardsApi.js"></script>
 <script src="/DesktopModules/OASCarrusel/js/script.js"></script>
+<!-- 
+
+-->
