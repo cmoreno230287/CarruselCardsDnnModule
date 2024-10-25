@@ -130,7 +130,7 @@ async function applyPropertiesFromJson(filename) {
                         if (item.json_section) element.setAttribute('json_section', item.json_section);
                         if (item.draggable) element.setAttribute('draggable', item.draggable);
                         if (item.src) element.setAttribute('src', item.src);
-                        if (item.value) {
+                        if (item.value && item.type != "file") {
                             element.value = item.value;
                             if (item.tagName == "select") {
                                 SetSectionStyle();

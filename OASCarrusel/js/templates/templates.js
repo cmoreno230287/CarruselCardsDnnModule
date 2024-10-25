@@ -5,7 +5,7 @@ const teplateContentTab = `<div class="row mt-4">
         <div class="col-sm-1">
         </div>
         <div class="col-sm-10 pipe">  
-            <label for="compartirImagen{tabCounter}">Imagen multilingüe</label>
+            <label for="compartirImagen{tabCounter}">Share image across languages</label>
             <input type="checkbox" class="chkShowLanguage" name="compartirImagen{tabCounter}" id="compartirImagen{tabCounter}" json_section="carruselCardsInfo"></input>	
             <span class="separatorNavItem">|</span>
             <label for="chkShowEnglishLanguage{tabCounter}">English</label>

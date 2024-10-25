@@ -116,6 +116,8 @@
     <Content Include="Edit.ascx" />
     <Content Include="js\renderCards.js" />
     <Content Include="js\renderCardsApi.js" />
+    <Content Include="js\scriptView.js" />
+    <Content Include="js\scriptSetting.js" />
     <Content Include="js\script.js" />
     <Content Include="js\templates\templates.js" />
     <Content Include="libraries\css\bootstrap-icons-1.11.0\0-circle-fill.svg" />

@@ -8,19 +8,21 @@ function SendData(CarruselViewSetting, filename) {
     }
 
     return new Promise((resolve, reject) => {
-        $.ajax({
-            url: '/API/OASCarrusel/CarruselApi/CardViewSetting',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(datasend),
-            success: function (response) {
-                //console.log(response);
-                resolve(response);
+        fetch('/API/OASCarrusel/CarruselApi/CardViewSetting', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             },
-            error: function (error) {
-                reject(error);
-            }
-        });
+            body: JSON.stringify(datasend)
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json(); // or response.text(), depending on the expected response type
+            })
+            .then(data => resolve(data))
+            .catch(error => reject(error));
     });
 }
 
@@ -33,19 +35,21 @@ function getData(filename) {
     }
 
     return new Promise((resolve, reject) => {
-        $.ajax({
-            url: '/API/OASCarrusel/CarruselApi/CardViewSetting',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(datasend),
-            success: function (response) {
-                //console.log(response);
-                resolve(response);
+        fetch('/API/OASCarrusel/CarruselApi/CardViewSetting', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             },
-            error: function (error) {
-                reject(error);
+            body: JSON.stringify(datasend)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-        });
+            return response.json(); // or response.text(), depending on the expected response type
+        })
+        .then(data => resolve(data))
+        .catch(error => reject(error));
     });
 }
 

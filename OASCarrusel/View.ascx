@@ -1,25 +1,23 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="View.ascx.cs" Inherits="OASDnnModules.OASCarrusel.View" %>
+ <!-- 
 <div id="containerSetting" style="display:none;">
+   
     <div class="container my-4" id="main-container">
-        <!-- Tabs Navigation -->
+          
         <div class="form-group row">
-            <!--<div class="col-sm-5">
-            </div>
-            <div class="col-sm-3">                
-            </div>-->
             <div class="col-sm-12 textalignEnd">
-                <label for="sectionTitle" class="marginleftbar">Titulo de la Seccion:</label>            
+                <label for="sectionTitle" class="marginleftbar">Section Name:</label>            
                 <input type="text" class="form-control inputSectionTitle" id="sectionTitle" placeholder="Enter title section" json-data="true" json_section="carruselInfo">
-                <label for="ButtonShowMore" class="marginleftbar">Mostrar boton ver mas</label>
+                <label for="ButtonShowMore" class="marginleftbar">Show Button to See More</label>
                 <input type="checkbox" name="ButtonShowMore" id="ButtonShowMore" json-data="true"  json_section="carruselInfo"></input>	
                 <label for="tipoSeccion" class="marginleftbar">Tipo de Seccion:</label>
                 <select id="tipoSeccion" onchange="SetSectionStyle()" json-data="true" json_section="carruselInfo">
-                    <option value="sel">Seleccionar</option>
-                    <option value="3des">3 Destacados</option>
-                    <option value="eve">Eventos</option>
-                    <option value="not">Noticias</option>
-                    <option value="2des">2 Destacados</option>
-                    <option value="carr">Carrusel</option>
+                    <option value="sel">Select</option>
+                    <option value="3des">3 Highlights</option>
+                    <option value="eve">Events</option>
+                    <option value="not">News</option>
+                    <option value="2des">2 Highlights</option>
+                    <option value="carr">Carrousel</option>
                 </select>
                 <a href="#" id="saveConfiguration" class="bi bi-floppy marginleftbar" onclick="generateJson()"></a>
             </div>
@@ -37,7 +35,6 @@
             </li>
         </ul>
         <div class="tab-content" id="tabContent">
-            <!-- Tab 1 Content -->
             <div class="tab-pane oascard fade show active" id="tabPane1" role="tabpanel" aria-labelledby="tab1" json_section="carruselCards">
                 <div class="row mt-4">                
                     <input type="hidden" id="showcard" value="true" json-data="true"/>
@@ -46,7 +43,7 @@
                         <div class="col-sm-1">
                         </div>
                         <div class="col-sm-10 pipe">  
-                            <label for="compartirImagen">Compartir Imagen</label>
+                            <label for="compartirImagen">Share image across languages</label>
                             <input type="checkbox" class="chkShowLanguage" name="compartirImagen" id="compartirImagen" json-data="true" json_section="carruselCardsInfo"></input>	
                             <span class="separatorNavItem">|</span>
                             <label for="chkShowEnglishLanguage">English</label>
@@ -64,8 +61,7 @@
                     <input type="file" id="file-input" accept="image/*" onchange="loadImage(event, 'image', 'scaleRange', '')" class="file-input-card">
                     <input type="file" id="file-input-Spanish" accept="image/*" onchange="loadImage(event, 'imageSpanish', 'scaleRangeSpanish', '')" class="file-input-card">
                     <input type="file" id="file-input-French" accept="image/*" onchange="loadImage(event, 'imageFrench', 'scaleRangeFrench', '')" class="file-input-card">
-                    <input type="file" id="file-input-Portugues" accept="image/*" onchange="loadImage(event, 'imagePortugues', 'scaleRangePortugues', '')" class="file-input-card">
-                    <!-- Left Side: Form Controls -->
+                    <input type="file" id="file-input-Portugues" accept="image/*" onchange="loadImage(event, 'imagePortugues', 'scaleRangePortugues', '')" class="file-input-card">                    
                     <div class="col-md-10">     
                         <ul class="nav nav-tabs" id="tabListLanguagesImages" role="tablist">
                             <li class="nav-item" role="presentation" id="tabliEnglish">
@@ -94,7 +90,6 @@
                             </li> 
                         </ul> 
                         <div class="tab-content" id="tabContentLanguagesImagesEnglish">
-                            <!-- Tab 1 Content -->
                             <div class="tab-pane oascard fade show active" id="tabPaneEnglish" role="tabpanel" aria-labelledby="tabEnglish">
                                 <div class="form-group row">
                                     <label for="scaleRange" class="col-sm-1 col-form-label">Size</label>
@@ -456,8 +451,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>        
 </div>
+-->
 <div id="containerViewResul">    
     <link rel="stylesheet" href="/DesktopModules/OASDnnModulesV2/pages/home/Section4/css/section_4.css"></link>
     <section class="row viewcardbar">
@@ -480,18 +476,17 @@
 <link href="/DesktopModules/OASCarrusel/libraries/css/slick.css" rel="stylesheet">
 <link href="/DesktopModules/OASCarrusel/libraries/css/slick-theme.css" rel="stylesheet">
 <link href="/DesktopModules/OASCarrusel/libraries/css/bootstrap.min.css" rel="stylesheet">
-<link href="/DesktopModules/OASCarrusel/libraries/css/bootstrap-icons-1.11.0/bootstrap-icons.min.css" rel="stylesheet">
+<%--<link href="/DesktopModules/OASCarrusel/libraries/css/bootstrap-icons-1.11.0/bootstrap-icons.min.css" rel="stylesheet">--%>
 <link href="/DesktopModules/OASCarrusel/css/viewgeneralStyle.css" rel="stylesheet">
 <link href="/DesktopModules/OASCarrusel/css/style.css" rel="stylesheet"> 
-<script src="/Resources/Libraries/jQuery/03_05_01/jquery.js"></script>
-<script src="/DesktopModules/OASCarrusel/libraries/js/popper.min.js"></script>
+<%--<script src="/DesktopModules/OASCarrusel/libraries/js/popper.min.js"></script>--%>
 <script src="/DesktopModules/OASCarrusel/libraries/js/bootstrap.min.js"></script>
 <script src="/DesktopModules/OASCarrusel/libraries/js/bootstrap.bundle.min.js"></script>
-<script src="/DesktopModules/OASCarrusel/libraries/js/Sortable.min.js"></script>
-<script src="/DesktopModules/OASCarrusel/js/templates/templates.js"></script>
+<%--<script src="/DesktopModules/OASCarrusel/libraries/js/Sortable.min.js"></script>--%>
+<%--<script src="/DesktopModules/OASCarrusel/js/templates/templates.js"></script>--%>
 <script src="/DesktopModules/OASCarrusel/js/renderCards.js"></script>
 <script src="/DesktopModules/OASCarrusel/js/renderCardsApi.js"></script>
-<script src="/DesktopModules/OASCarrusel/js/script.js"></script>
+<script src="/DesktopModules/OASCarrusel/js/scriptView.js"></script>
 <!-- 
 
 -->
